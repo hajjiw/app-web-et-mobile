@@ -1,0 +1,27 @@
+body {
+  border: 2px solid sienna;
+  border-radius: 2px;
+}
+
+p {
+  text-align: center;
+}
+
+.container {
+  width: 600px;
+  clear: both;
+}
+
+.container input {
+  margin: 2px;
+}
+
+input {
+  display: inline-block;
+}
+
+.err {
+  font-size: 10px;
+  color: red;
+  background-color: lightgrey;
+}

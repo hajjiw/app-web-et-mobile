@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Formulaire</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="formulaire">
+        Sexe
+        <input type="radio" name="genre" id="homme" /><label for="homme"
+          >Homme</label
+        >
+        <input type="radio" name="genre" id="femme" /><label for="femme"
+          >Femme</label
+        >
+        <span class="err" id="errgenre"></span><br />
+        Nom
+        <input type="text" id="lastname" class="intext"/> <span class="err emptytext" id="errnom"></span
+        ><br />
+        Prénom
+        <input type="text" id="firstname" class="intext" />
+        <span class="err emptytext" id="errprenom"></span><br />
+        Âge
+        <input type="text" id="age" class="intext"/><span id="errage" class="err emptytext"></span
+        ><br />
+        Mot de passe
+        <input type="password" id="password" class="intext" />
+        <span class="err errpasswd emptytext"></span><br />
+        Mot de passe (confirmation)
+        <input type="password" id="confpassword" class="intext"/>
+        <span class="err errpasswd emptytext"></span><br />
+        Pays
+        <select name="pays" id="pays">
+          <option value="angleterre">Angleterre</option>
+          <option value="france">France</option>
+          <option value="maroc">Maroc</option> </select
+        ><br />
+        <input type="checkbox" name="newsletter" id="newsletter" />
+        <label for="newsletter"
+          >Je désire recevoir la newsletter chaque mois</label
+        ><br />
+
+        <input type="button" value="Valider" id="submit" />
+        <input type="button" value="Réinitialiser" id="reset" />
+      </form>
+    </div>
+  </body>
+  <script src="form.js"></script>
+</html>
