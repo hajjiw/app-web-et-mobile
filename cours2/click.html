@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="counterApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Click</title>
+  </head>
+  <body ng-controller="CounterSavedCtrl">
+    <button ng-click="increment()">
+      Incrementer et sauvegarder
+    </button>
+    count: <span ng-bind="count"></span>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  <script src="counterSaved.js"></script>
+</html>

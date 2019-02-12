@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="helloApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hello world</title>
+  </head>
+  <body>
+    <div ng-controller="helloCtrl">
+      <h2>Hello {{ name }}</h2>
+      <h2>Hello <span ng-bind="name"></span></h2>
+    </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  <script>
+    let helloApp = angular.module("helloApp", []);
+    helloApp.controller("helloCtrl", [
+      "$scope",
+      $scope => {
+        $scope.name = "TEST";
+      }
+    ]);
+  </script>
+</html>
