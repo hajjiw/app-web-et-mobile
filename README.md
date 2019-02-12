@@ -6,6 +6,6 @@ Formulaire fait uniquement en javascript.
 
 ## Cours 2
 Todo list avec Angular. Lancer la commande suivante pour initialiser le projet.
-```js
-npm install
+```bash
+$ npm install
 ```
