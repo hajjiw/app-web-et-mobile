@@ -10,5 +10,5 @@ Todo list avec Angular. Lancer la commande suivante pour initialiser le projet.
 $ npm install
 ```
 ### Todo
-- [] organiser les sous-dossiers; séparer `html` et `js`
-- [] finir la todo list
+- [ ] organiser les sous-dossiers; séparer `html` et `js`
+- [ ] finir la todo list
