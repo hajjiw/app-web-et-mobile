@@ -5,4 +5,7 @@ Dépôt contenant les exercices du cours Application Web et Mobile
 Formulaire fait uniquement en javascript.
 
 ## Cours 2
-Todo list avec Angular.
+Todo list avec Angular. Lancer la commande suivante pour initialiser le projet.
+```js
+npm install
+```
