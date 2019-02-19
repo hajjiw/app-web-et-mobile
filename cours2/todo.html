@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html ng-app="todoApp">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Todo 1</title>
   </head>
-  <body>
-    <div ng-controller="TestCtrl">
-      <h2>Controller 1</h2>
-      <input type="text" ng-model="firstName" />
+  <body ng-app="todoApp" style="margin: 2em">
+    <div ng-controller="todoList">
+    <input type="text" ng-model="newTask"/>
+    <input type="button" value="Add task" ng-model="addTask" ng-click="addTask()">
+      <h2 style="color: #373fff; font-style: italic;">Todos</h2>
       <br />
-      Hello <span ng-bind="firstName"></span>
-    </div>
-
-    <div ng-controller="TestCtrl2">
-      <button ng-click="modifyName()">Modifier le nom</button>
-      <h2>Controller 2</h2>
-      Je m'appelle <span ng-bind="name"></span>.
+        <ul>
+          <li ng-repeat="task in tasks">
+            <span>{{ task }} <input type="button" value="Done!" ng-click="deleteTask($index)"></span>
+          </li>
+        </ul>
+        <hr>
+        <ul>
+          <li ng-repeat="task in deletedTasks">
+            <span style="text-decoration: line-through">{{ task }}</span> <input type="button" value="Restore" ng-click="restoreTask($index)">
+          </li>
+        </ul>
     </div>
   </body>
   <script src="assets/angular.min.js"></script>
-  <script></script>
+  <script src="todo.js"></script>
 </html>
