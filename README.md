@@ -5,10 +5,8 @@ Dépôt contenant les exercices du cours Application Web et Mobile
 Formulaire fait uniquement en javascript.
 
 ## Cours 2
-Todo list avec Angular. Lancer la commande suivante pour initialiser le projet.
-```bash
-$ npm install
-```
+Todo list avec Angular.
+
 ### Todo
 - [ ] organiser les sous-dossiers; séparer `html` et `js`
-- [ ] finir la todo list
+- [x] finir la todo list
