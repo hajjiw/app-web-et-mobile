@@ -4,25 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Todo 1</title>
+    <title>Todo</title>
   </head>
   <body ng-app="todoApp" style="margin: 2em">
+    <h2 style="color: #373fff; font-style: italic;">Todo list</h2>
     <div ng-controller="todoList">
-    <input type="text" ng-model="newTask"/>
-    <input type="button" value="Add task" ng-model="addTask" ng-click="addTask()">
-      <h2 style="color: #373fff; font-style: italic;">Todos</h2>
+      <input type="text" ng-model="newTask" />
+      <input
+        type="button"
+        value="Add task"
+        ng-click="addTask()"
+      />
       <br />
-        <ul>
-          <li ng-repeat="task in tasks">
-            <span>{{ task }} <input type="button" value="Done!" ng-click="deleteTask($index)"></span>
-          </li>
-        </ul>
-        <hr>
-        <ul>
-          <li ng-repeat="task in deletedTasks">
-            <span style="text-decoration: line-through">{{ task }}</span> <input type="button" value="Restore" ng-click="restoreTask($index)">
-          </li>
-        </ul>
+      <ul style="margin: 1em -2em; list-style-type: none;">
+        <li ng-repeat="task in tasks">
+          <input
+            type="checkbox"
+            name="toggleTask"
+            ng-click="toggleTask($index)"
+            ng-checked="task.done"
+          />
+          <span
+            ng-style="task.done ? {'text-decoration': 'line-through', 'color': 'rgb(0,0,0,.54)'} : {}"
+            >{{ task.title }}</span
+          >
+        </li>
+      </ul>
+      <hr />
     </div>
   </body>
   <script src="assets/angular.min.js"></script>
