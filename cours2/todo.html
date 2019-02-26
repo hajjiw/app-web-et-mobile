@@ -17,7 +17,7 @@
       />
       <br />
       <ul style="margin: 1em -2em; list-style-type: none;">
-        <li ng-repeat="task in tasks">
+        <li ng-repeat="task in tasks track by $index">
           <input
             type="checkbox"
             name="toggleTask"
@@ -30,7 +30,6 @@
           >
         </li>
       </ul>
-      <hr />
     </div>
   </body>
   <script src="assets/angular.min.js"></script>

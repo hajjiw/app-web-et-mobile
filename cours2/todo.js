@@ -15,6 +15,7 @@ todoApp.controller("todoList", [
 
     $scope.toggleTask = index => {
       $scope.tasks[index].done = !$scope.tasks[index].done
+      // $scope.tasks.splice(index, 1);
       sessionStorage.setItem("tasks", JSON.stringify($scope.tasks));
     };
   }
