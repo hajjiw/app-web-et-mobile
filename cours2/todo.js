@@ -8,14 +8,24 @@ todoApp.controller("todoList", [
       : [];
 
     $scope.addTask = () => {
-      $scope.tasks.push({ title: $scope.newTask, done: false });
-      $scope.newTask = "";
-      sessionStorage.setItem("tasks", JSON.stringify($scope.tasks));
+      if ($scope.newTask !== "") {
+        $scope.tasks.push({ title: $scope.newTask, done: false });
+        $scope.newTask = "";
+        sessionStorage.setItem("tasks", JSON.stringify($scope.tasks));
+      }
     };
 
     $scope.toggleTask = index => {
-      $scope.tasks[index].done = !$scope.tasks[index].done
-      // $scope.tasks.splice(index, 1);
+      $scope.tasks[index].done = !$scope.tasks[index].done;
+      sessionStorage.setItem("tasks", JSON.stringify($scope.tasks));
+    };
+
+    $scope.removeFinishedTasks = () => {
+      for (let index = $scope.tasks.length - 1; index >= 0; index--) {
+        if ($scope.tasks[index].done) {
+          $scope.tasks.splice(index, 1);
+        }
+      }
       sessionStorage.setItem("tasks", JSON.stringify($scope.tasks));
     };
   }

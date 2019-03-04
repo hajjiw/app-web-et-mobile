@@ -15,6 +15,7 @@
         value="Add task"
         ng-click="addTask()"
       />
+      <input type="button" value="Remove finished tasks" ng-click="removeFinishedTasks()">
       <br />
       <ul style="margin: 1em -2em; list-style-type: none;">
         <li ng-repeat="task in tasks track by $index">
