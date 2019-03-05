@@ -1,0 +1,25 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hajjiw/app-web-et-mobile.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hajjiw/app-web-et-mobile/issues"
+  },
+  "homepage": "https://github.com/hajjiw/app-web-et-mobile#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.17",
+    "morgan": "^1.9.1"
+  }
+}
