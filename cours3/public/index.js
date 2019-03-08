@@ -1,39 +1,46 @@
-const TodoApp = angular.module("TodoApp", []);
-
 let mainController = ($scope, $http) => {
   $scope.formData = {};
-  $http
-    .get("/api/list")
-    .success(data => {
-      $scope.list = data;
-      console.log(data);
-    })
-    .error(data => {
-      console.log("Error: " + data);
-    });
+
+  $scope.getTodos = () => {
+    $http
+      .get('/api/list')
+      .then(data => {
+        $scope.list = data.data;
+        console.log(data.data);
+      })
+      .catch(data => {
+        console.log('Error: ' + data);
+      });
+  };
 
   $scope.createTodo = () => {
     $http
-      .post("/api/list", $scope.formData)
-      .success(data => {
+      .post('/api/list', $scope.formData)
+      .then(data => {
         $scope.formData = {};
-        $scope.list = data;
-        console.log(data);
+        $scope.list = data.data;
+        console.log(data.data);
       })
-      .error(data => {
-        console.log("Error: " + data);
+      .catch(data => {
+        console.log('Error: ' + data);
       });
   };
 
   $scope.deleteTodo = id => {
     $http
-      .delete("/api/list" + id)
-      .success(data => {
-        $scope.list = data;
-        console.log(data);
+      .delete('/api/list/' + id)
+      .then(data => {
+        $scope.getTodos();
+        console.log(data.data);
       })
-      .error(data => {
-        console.log("Error: " + data);
+      .catch(err => {
+        console.log('Error: ' + err);
       });
   };
+
+  $scope.getTodos();
 };
+
+const TodoApp = angular
+  .module('TodoApp', [])
+  .controller('mainController', mainController);
