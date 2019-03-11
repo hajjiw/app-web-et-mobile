@@ -81,3 +81,6 @@ typings/
 
 # boostrap
 bootstrap.min.css
+
+# vscode
+.vscode/
