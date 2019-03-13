@@ -2,8 +2,7 @@ const Todo = require('../models/models').Todo;
 
 const list = async (req, res) => {
   try {
-    const list = await Todo.find();
-    return res.json(list);
+    return res.json(await Todo.find());
   } catch (error) {
     res.send(error);
   }
