@@ -7,6 +7,6 @@ Formulaire fait uniquement en javascript.
 ## Cours 2
 Todo list avec Angular.
 
-### Todo
-- [ ] organiser les sous-dossiers; séparer `html` et `js`
-- [x] finir la todo list
+## Cours 3
+Todo list RESTful API faite. Les fonctions `async` ont été utilisés.
+
