@@ -1,55 +1,52 @@
 const Todo = require('../models/models').Todo;
 
-const list = (req, res) => {
-  Todo.find((err, list) => {
-    if (err) res.send(err);
-    res.json(list);
-  });
+const list = async (req, res) => {
+  try {
+    const list = await Todo.find();
+    return res.json(list);
+  } catch (error) {
+    res.send(error);
+  }
 };
 
-const add = (req, res) => {
-  Todo.create(
-    {
+const add = async (req, res) => {
+  try {
+    await Todo.create({
       todo: req.body.todo,
       done: false,
       date: new Date().toLocaleTimeString()
-    },
-    (err, list) => {
-      if (err) res.send(err);
-      Todo.find((err, list) => {
-        if (err) res.send(err);
-        res.json(list);
-      });
-    }
-  );
-  console.log(req.body.todo);
+    });
+    return res.json(await Todo.find());
+  } catch (error) {
+    res.send(error);
+  }
 };
 
-const remove = (req, res) => {
-  Todo.deleteOne(
-    {
+const remove = async (req, res) => {
+  try {
+    await Todo.deleteOne({
       _id: req.params.list_id
-    },
-    (err, list) => {
-      if (err) res.send(err);
-      res.json(list);
-    }
-  );
+    });
+    return res.json(await Todo.find());
+  } catch (err) {
+    res.send(err);
+  }
 };
 
-const update = (req, res) => {
-  Todo.updateOne(
-    {
-      _id: req.params.list_id
-    },
-    {
-      done: true
-    },
-    (err, list) => {
-      if (err) res.send(err);
-      res.json(list);
-    }
-  );
+const update = async (req, res) => {
+  try {
+    await Todo.updateOne(
+      {
+        _id: req.params.list_id
+      },
+      {
+        done: true
+      }
+    );
+    return res.json(await Todo.find());
+  } catch (err) {
+    res.send(err);
+  }
 };
 
 module.exports = { list, add, update, remove };
