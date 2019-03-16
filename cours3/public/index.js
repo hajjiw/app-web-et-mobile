@@ -14,16 +14,18 @@ let mainController = ($scope, $http) => {
   };
 
   $scope.createTodo = () => {
-    $http
-      .post('/api/list', $scope.formData)
-      .then(data => {
-        $scope.formData = {};
-        $scope.list = data.data;
-        // console.log(data.data);
-      })
-      .catch(data => {
-        console.log('Error: ' + data);
-      });
+    if ($scope.formData.todo !== undefined) {
+      $http
+        .post('/api/list', $scope.formData)
+        .then(data => {
+          $scope.formData = {};
+          $scope.list = data.data;
+          // console.log(data.data);
+        })
+        .catch(data => {
+          console.log('Error: ' + data);
+        });
+    }
   };
 
   $scope.deleteTodo = id => {
