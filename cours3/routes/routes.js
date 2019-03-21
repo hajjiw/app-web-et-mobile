@@ -1,4 +1,4 @@
-const Todo = require('../models/models').Todo;
+const Todo = require("../models/models").Todo;
 
 const list = async (req, res) => {
   try {
@@ -34,18 +34,22 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    await Todo.updateOne(
-      {
-        _id: req.params.list_id
-      },
-      {
-        done: true
-      }
-    );
+    await Todo.findByIdAndUpdate(req.params.list_id, {
+      done: true
+    });
     return res.json(await Todo.find());
   } catch (err) {
     res.send(err);
   }
 };
 
-module.exports = { list, add, update, remove };
+const update_todo = async (req, res) => {
+  try {
+    await Todo.findByIdAndUpdate(req.params.list_id, { todo: req.body.todo});
+    return res.json(await Todo.find());
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+module.exports = { list, add, update, remove, update_todo };

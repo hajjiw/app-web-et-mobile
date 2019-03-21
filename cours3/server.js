@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
 app.get('/api/list', routes.list);
 app.post('/api/list', routes.add);
 app.put('/api/list/:list_id', routes.update);
+app.put('/api/list/todo/:list_id', routes.update_todo);
 app.delete('/api/list/:list_id', routes.remove);
 
 app.listen(3000);

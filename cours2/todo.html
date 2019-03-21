@@ -10,12 +10,12 @@
     <h2 style="color: #373fff; font-style: italic;">Todo list</h2>
     <div ng-controller="todoList">
       <input type="text" ng-model="newTask" />
+      <input type="button" value="Add task" ng-click="addTask()" />
       <input
         type="button"
-        value="Add task"
-        ng-click="addTask()"
+        value="Remove finished tasks"
+        ng-click="removeFinishedTasks()"
       />
-      <input type="button" value="Remove finished tasks" ng-click="removeFinishedTasks()">
       <br />
       <ul style="margin: 1em -2em; list-style-type: none;">
         <li ng-repeat="task in tasks track by $index">
@@ -27,6 +27,7 @@
           />
           <span
             ng-style="task.done ? {'text-decoration': 'line-through', 'color': 'rgb(0,0,0,.54)'} : {}"
+            contenteditable="true"
             >{{ task.title }}</span
           >
         </li>
