@@ -8,10 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
     <script src="index.js"></script>
     <link
-    rel="stylesheet"
-    href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body ng-controller="mainController" style="margin: 2em">
     <h2 style="color: #373fff; font-style: italic;">Todo list</h2>
@@ -27,13 +27,15 @@
     <div id="todo-list">
       <ul style="list-style-type: none; margin: 0; padding: 0;">
         <li ng-repeat="x in list">
-          <button ng-click="updateTodo(x._id)" class="btn btn-link">
-            &#x270e;
-          </button>
           <button ng-click="deleteTodo(x._id)" class="btn btn-link">
             &times;</button
           ><span style="color: rgba(0, 0, 0, 0.6)">({{ x.date }})</span>
-          <input type="text" ng-model="x.todo" class="todo" />
+          <input
+            type="text"
+            ng-model="x.todo"
+            class="todo"
+            ng-blur="updateTodo(x)"
+          />
         </li>
       </ul>
     </div>

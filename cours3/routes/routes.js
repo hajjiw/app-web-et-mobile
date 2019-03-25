@@ -34,7 +34,7 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    await Todo.findByIdAndUpdate(req.params.list_id, {
+    await Todo.findOneAndUpdate(req.params.list_id, {
       done: true
     });
     return res.json(await Todo.find());
@@ -45,7 +45,7 @@ const update = async (req, res) => {
 
 const update_todo = async (req, res) => {
   try {
-    await Todo.findByIdAndUpdate(req.params.list_id, { todo: req.body.todo});
+    await Todo.findOneAndUpdate(req.params.list_id, { todo: req.body.todo });
     return res.json(await Todo.find());
   } catch (err) {
     res.send(err);

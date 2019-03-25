@@ -6,7 +6,6 @@ let mainController = ($scope, $http) => {
       .get("/api/list")
       .then(data => {
         $scope.list = data.data;
-        // console.log(data.data);
       })
       .catch(data => {
         console.log("Error: " + data);
@@ -20,7 +19,6 @@ let mainController = ($scope, $http) => {
         .then(data => {
           $scope.formData = {};
           $scope.list = data.data;
-          // console.log(data.data);
         })
         .catch(data => {
           console.log("Error: " + data);
@@ -33,18 +31,18 @@ let mainController = ($scope, $http) => {
       .delete("/api/list/" + id)
       .then(data => {
         $scope.getTodos();
-        // console.log(data.data);
       })
       .catch(err => {
         console.log("Error: " + err);
       });
   };
 
-  $scope.updateTodo = id => {
+  $scope.updateTodo = x => {
     $http
-      .put("api/list/todo/" + id)
+      .put("api/list/todo/" + x._id, x)
       .then(data => {
         $scope.list = data.data;
+        console.log(data.data);
       })
       .catch(err => {
         console.log("Error: " + err);
