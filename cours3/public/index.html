@@ -26,10 +26,12 @@
     <br />Nombre de choses: {{ list.length }}
     <div id="todo-list">
       <ul style="list-style-type: none; margin: 0; padding: 0;">
-        <li ng-repeat="x in list">
+        <li ng-repeat="x in list track by $index">
           <button ng-click="deleteTodo(x._id)" class="btn btn-link">
             &times;</button
-          ><span style="color: rgba(0, 0, 0, 0.6)">({{ x.date }})</span>
+          ><span style="color: rgba(0, 0, 0, 0.5)" class="small"
+            >({{ x.date }})</span
+          >
           <input
             type="text"
             ng-model="x.todo"
