@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="LoginApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
     <h1 class="text-bold text-center">Connexion</h1>
     <div class="col-sm-4 m-auto">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" ng-controller="loginController">
           <form>
             <div class="form-group">
               <label for="loginForm">Identifiant</label>
@@ -26,6 +26,7 @@
                 id="login"
                 placeholder="Identifiant"
                 class="form-control"
+                ng-model="credentials.username"
                 autofocus
               />
             </div>
@@ -37,13 +38,15 @@
                 id="pwd"
                 placeholder="Mot de passe"
                 class="form-control"
+                ng-model="credentials.password"
               />
             </div>
             <div class="text-center">
               <button
-                type="button"
+                type="submit"
                 id="connecter"
                 class="btn btn-outline-secondary"
+                ng-click="login()"
               >
                 Se connecter
               </button>
