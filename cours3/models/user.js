@@ -17,6 +17,22 @@ UserSchema.pre('save', async function(next) {
   }
 });
 
+UserSchema.statics.authenticate = async function(username, password) {
+  try {
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      let err = new Error('User not found');
+      err.status = 401;
+      return err;
+    } else {
+      const result = await bcrypt.compare(password, user.password);
+      return result ? user : false;
+    }
+  } catch (error) {
+    return error;
+  }
+};
+
 // UserSchema.methods.comparePassword = async candidatePassword => {
 //   return bcrypt.compare(candidatePassword, this.password);
 // };
