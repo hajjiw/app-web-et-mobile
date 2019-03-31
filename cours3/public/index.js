@@ -1,5 +1,6 @@
-let mainController = ($scope, $http) => {
+let mainController = ($scope, $http, $window) => {
   $scope.formData = {};
+  $scope.user = '';
 
   $scope.getTodos = () => {
     $http
@@ -59,9 +60,53 @@ let mainController = ($scope, $http) => {
       });
   };
 
+  $scope.getCurrentUser = () => {
+    $http
+      .get('/api/list/user')
+      .then(data => {
+        $scope.user = data.data;
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
+  };
+
+  $scope.logout = () => {
+    $http
+      .get('/logout')
+      .then(data => {
+        $window.location.href = '/login';
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
+  };
+
+  $scope.getCurrentUser();
   $scope.getTodos();
+};
+
+let loginController = ($scope, $http, $window) => {
+  $scope.credentials = {};
+  $scope.login = () => {
+    $http
+      .post('/login', $scope.credentials)
+      .then(data => {
+        console.log(data);
+        if (data.data.status === 401 || data.data === false)
+          $window.location.href = '/login';
+        else $window.location.href = '/';
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
+  };
 };
 
 const TodoApp = angular
   .module('TodoApp', [])
   .controller('mainController', mainController);
+
+const LoginApp = angular
+  .module('LoginApp', [])
+  .controller('loginController', loginController);

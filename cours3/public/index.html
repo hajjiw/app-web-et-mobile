@@ -14,7 +14,16 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body ng-controller="mainController" style="margin: 2em">
-    <h2 style="color: #373fff; font-style: italic;">Todo list</h2>
+    <button class="btn btn-link float-right" ng-click="logout()">
+      <img
+        src="assets/account-logout.svg"
+        title="Log out"
+        width="32"
+        height="32"
+      />
+    </button>
+    <h2 class="text-primary font-italic">Todo list</h2>
+    Bonjour <span ng-bind="user" class="font-weight-bold font-italic"></span>
     <div id="todo-form">
       <form>
         <input type="text" placeholder="Écrire" ng-model="formData.todo" />
