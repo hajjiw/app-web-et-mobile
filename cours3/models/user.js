@@ -33,10 +33,6 @@ UserSchema.statics.authenticate = async function(username, password) {
   }
 };
 
-// UserSchema.methods.comparePassword = async candidatePassword => {
-//   return bcrypt.compare(candidatePassword, this.password);
-// };
-
 let User = new mongoose.model('User', UserSchema, 'users');
 
 module.exports = User;
