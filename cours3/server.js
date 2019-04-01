@@ -24,9 +24,16 @@ app.use(
 mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
 
 app.get('/', (req, res) => {
-  console.log(req.session.user);
-  if (!req.session.user) res.redirect('/login');
+  if (!req.session.user) return res.redirect('/login');
+  else return res.redirect('/todo');
 });
+
+app.get('/todo', (req, res) => {
+  if (req.session.user)
+    return res.sendFile('/public/todo.html', { root: __dirname });
+  else return res.redirect('/login');
+});
+
 app
   .route('/api/list')
   .get(routes.list)
@@ -44,7 +51,7 @@ app
 app
   .route('/login')
   .get((req, res) => {
-    res.sendFile('/public/login.html', { root: __dirname });
+    res.sendFile('/public/index.html', { root: __dirname });
   })
   .post(routes.login);
 
