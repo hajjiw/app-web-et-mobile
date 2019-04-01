@@ -92,10 +92,9 @@ let loginController = ($scope, $http, $window) => {
     $http
       .post('/login', $scope.credentials)
       .then(data => {
-        console.log(data);
         if (data.data.status === 401 || data.data === false)
           $window.location.href = '/login';
-        else $window.location.href = '/';
+        else $window.location.href = '/todo';
       })
       .catch(err => {
         console.log('Error: ' + err);

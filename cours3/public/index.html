@@ -1,54 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="TodoApp">
+<html lang="en" ng-app="LoginApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Todo List</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
     <script src="index.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <title>Connexion</title>
   </head>
-  <body ng-controller="mainController" style="margin: 2em">
-    <button class="btn btn-link float-right" ng-click="logout()">
-      <img
-        src="assets/account-logout.svg"
-        title="Log out"
-        width="32"
-        height="32"
-      />
-    </button>
-    <h2 class="text-primary font-italic">Todo list</h2>
-    Bonjour <span ng-bind="user" class="font-weight-bold font-italic"></span>
-    <div id="todo-form">
-      <form>
-        <input type="text" placeholder="Écrire" ng-model="formData.todo" />
-        <button type="submit" ng-click="createTodo()" class="btn btn-primary">
-          Ajouter
-        </button>
-      </form>
-    </div>
-    <br />Nombre de choses: {{ list.length }}
-    <div id="todo-list">
-      <ul style="list-style-type: none; margin: 0; padding: 0;">
-        <li ng-repeat="x in list track by $index">
-          <button ng-click="deleteTodo(x._id)" class="btn btn-link">
-            &times;</button
-          ><span style="color: rgba(0, 0, 0, 0.5)" class="small"
-            >({{ x.date }})</span
-          >
-          <input
-            type="text"
-            ng-model="x.todo"
-            class="todo"
-            ng-blur="updateTodo(x)"
-          />
-        </li>
-      </ul>
+  <body>
+    <h1 class="text-bold text-center">Connexion</h1>
+    <div class="col-sm-4 m-auto">
+      <div class="card">
+        <div class="card-body" ng-controller="loginController">
+          <form>
+            <div class="form-group">
+              <label for="loginForm">Identifiant</label>
+              <input
+                type="text"
+                name="login"
+                id="login"
+                placeholder="Identifiant"
+                class="form-control"
+                ng-model="credentials.username"
+                autofocus
+              />
+            </div>
+            <div class="form-group">
+              <label for="pwdForm">Mot de passe</label>
+              <input
+                type="password"
+                name="pwd"
+                id="pwd"
+                placeholder="Mot de passe"
+                class="form-control"
+                ng-model="credentials.password"
+              />
+            </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                id="connecter"
+                class="btn btn-outline-secondary"
+                ng-click="login()"
+              >
+                Se connecter
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
