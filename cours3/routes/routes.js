@@ -3,8 +3,9 @@ const User = require('../models/user');
 
 const list = async (req, res) => {
   try {
-    if (req.session.user) return res.json(await Todo.find());
-    else return res.redirect('/login');
+    // if (req.session.user) return res.json(await Todo.find());
+    // else return res.redirect('/login');
+    return res.json(await Todo.find());
   } catch (error) {
     res.send(error);
   }
@@ -23,7 +24,8 @@ const add = async (req, res) => {
     await Todo.create({
       todo: req.body.todo,
       done: false,
-      date: new Date().toLocaleTimeString()
+      date: new Date().toLocaleTimeString(),
+      category: req.body.category
     });
     return res.json(await Todo.find());
   } catch (error) {
@@ -44,8 +46,10 @@ const remove = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    await Todo.findOneAndUpdate(req.params.list_id, {
-      done: true
+    const doneState = await Todo.findById(req.params.list_id);
+    console.log(!doneState.done);
+    await Todo.findByIdAndUpdate(req.params.list_id, {
+      done: !doneState.done
     });
     return res.json(await Todo.find());
   } catch (err) {
@@ -55,7 +59,7 @@ const update = async (req, res) => {
 
 const update_todo = async (req, res) => {
   try {
-    await Todo.findOneAndUpdate(req.params.list_id, {
+    await Todo.findByIdAndUpdate(req.params.list_id, {
       date: new Date().toLocaleTimeString(),
       todo: req.body.todo
     });
@@ -101,7 +105,7 @@ const logout = (req, res) => {
 
 const get_current_user = (req, res) => {
   try {
-    return res.send(req.session.user.username);
+    return res.json(req.session.user.username);
   } catch (error) {
     return res.send(error);
   }

@@ -1,5 +1,13 @@
+body {
+  color: #333333;
+}
+
 .todo {
   border: none;
+}
+
+.btn-link a:hover {
+  text-decoration: none;
 }
 
 .todo:focus {

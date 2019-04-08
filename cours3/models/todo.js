@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const TodoSchema = new mongoose.Schema({
   todo: String,
   done: Boolean,
-  date: String
+  date: String,
+  category: String
 });
 
 let Todo = new mongoose.model('Todo', TodoSchema, 'todolist');

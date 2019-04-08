@@ -38,6 +38,17 @@ let mainController = ($scope, $http, $window) => {
       });
   };
 
+  $scope.checkTodo = id => {
+    $http
+      .put('/api/list/' + id)
+      .then(data => {
+        $scope.getTodos();
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
+  };
+
   $scope.updateTodo = x => {
     // we get the todo and compare it with the current one
     // to see if it has changed
