@@ -1,4 +1,5 @@
-const Todo = require('../models/todo');
+const Todo = require('../models/todo').Todo;
+const Category = require('../models/todo').Category;
 const User = require('../models/user');
 
 const list = async (req, res) => {
@@ -19,6 +20,7 @@ const get_todo = async (req, res) => {
 
 const add = async (req, res) => {
   try {
+    console.log(req.body.category);
     await Todo.create({
       todo: req.body.todo,
       done: false,
@@ -81,7 +83,7 @@ const login = async (req, res) => {
   }
 };
 
-const signin = async (req, res) => {
+const signup = async (req, res) => {
   if (req.method === 'POST') {
     try {
       await User.create({
@@ -114,12 +116,24 @@ const get_current_user = (req, res) => {
 
 const get_lists = async (req, res) => {
   try {
-    const categories = await Todo.find({ user: req.session.user._id }).distinct(
-      'category'
-    );
+    const categories = await Category.find({
+      user: req.session.user._id
+    });
     return res.send(categories);
   } catch (error) {
     return res.send(error);
+  }
+};
+
+const insert_list = async (req, res) => {
+  try {
+    await Category.create({
+      category: req.params.category,
+      user: req.session.user._id
+    });
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.send(err);
   }
 };
 
@@ -132,7 +146,8 @@ module.exports = {
   get_todo,
   login,
   logout,
-  signin,
+  signup,
   get_current_user,
-  get_lists
+  get_lists,
+  insert_list
 };

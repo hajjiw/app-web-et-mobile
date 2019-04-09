@@ -1,6 +1,7 @@
 const mainController = ($scope, $http, $window) => {
   $scope.formData = {};
   $scope.user = '';
+  $scope.formCategory = '';
   $scope.lists = [];
 
   $scope.getTodos = () => {
@@ -102,6 +103,17 @@ const mainController = ($scope, $http, $window) => {
     });
   };
 
+  $scope.createCategory = () => {
+    $http
+      .post('/api/lists/' + $scope.formCategory)
+      .then(() => {
+        $scope.getLists();
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
+  };
+
   $scope.logout = () => {
     $http
       .get('/logout')
@@ -134,13 +146,13 @@ const loginController = ($scope, $http, $window) => {
   };
 };
 
-const signinController = ($scope, $http, $window) => {
+const signupController = ($scope, $http, $window) => {
   $scope.credentials = {};
   $scope.confirmPassword = '';
-  $scope.signin = () => {
+  $scope.signup = () => {
     if ($scope.credentials.password === $scope.confirmPassword) {
       $http
-        .post('/signin', $scope.credentials)
+        .post('/signup', $scope.credentials)
         .then(data => {
           alert('Vous êtes inscrit !');
           if (data.status === 200) $window.location.href = '/login';
@@ -161,6 +173,6 @@ const LoginApp = angular
   .module('LoginApp', [])
   .controller('loginController', loginController);
 
-const SigninApp = angular
+const SignupApp = angular
   .module('SigninApp', [])
-  .controller('signinController', signinController);
+  .controller('signinController', signupController);

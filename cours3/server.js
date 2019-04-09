@@ -6,6 +6,9 @@ const app = express();
 const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const url =
+  'mongodb+srv://wadii:balerionisbae@todolist-fq3ya.mongodb.net/todo?retryWrites=true';
+const localurl = 'mongodb://localhost/todo';
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(morgan('dev'));
@@ -21,11 +24,9 @@ app.use(
 );
 
 // on connecte
-mongoose
-  .connect('mongodb://localhost/todo', { useNewUrlParser: true })
-  .catch(err => {
-    console.log('Error ' + err);
-  });
+mongoose.connect(url, { useNewUrlParser: true }).catch(err => {
+  console.log('Error ' + err);
+});
 
 app.get('/', (req, res) => {
   if (!req.session.user) return res.redirect('/login');
@@ -53,7 +54,9 @@ app.get('/api/*', (req, res, next) => {
   }
 });
 
-app.get('/api/lists', routes.get_lists);
+app.route('/api/lists').get(routes.get_lists);
+
+app.post('/api/lists/:category', routes.insert_list);
 
 app
   .route('/api/list')
@@ -72,11 +75,11 @@ app
 app.get('/api/list/user', routes.get_current_user);
 app.get('/logout', routes.logout);
 app
-  .route('/signin')
+  .route('/signup')
   .get((req, res) => {
-    res.sendFile('/signin.html', { root: path.join(__dirname, 'public/') });
+    res.sendFile('/signup.html', { root: path.join(__dirname, 'public/') });
   })
-  .post(routes.signin);
+  .post(routes.signup);
 
 app.listen(3001, () => {
   console.log('express started on 3001');

@@ -28,22 +28,29 @@
     <h2 class="text-primary font-italic">Todo list</h2>
     Bonjour <span ng-bind="user" class="font-weight-bold font-italic"></span>
     <hr />
-    <form class="form-inline">
-      <input type="text" ng-model="formData.category" ng-if="showInput" class="form-control col-sm-2" />
-      <button
-        type="button"
-        class="btn btn-info"
-        ng-click="(showInput = true)"
-      >
-        ✎
-      </button>
-      <button
-      type="button"
-      class="btn btn-danger"
-      ng-click="(showInput = false)"
-      >
-      &times;
-    </button>
+    <form>
+      <div class="form-group row">
+        <label for="addCategory" class="col-sm-2 col-form-label"
+          >Ajouter une catégorie</label
+        >
+        <div class="col-sm-4">
+          <input
+            id="addCategory"
+            ng-model="formCategory"
+            type="text"
+            class="form-control"
+          />
+        </div>
+        <div class="col-sm-2">
+          <button
+            type="submit"
+            ng-click="createCategory()"
+            class="btn btn-link"
+          >
+            +
+          </button>
+        </div>
+      </div>
     </form>
     <br />
     <select
@@ -52,7 +59,10 @@
       class="custom-select col-sm-3"
       ng-change="getFilteredTodos()"
     >
-      <option ng-repeat="l in lists" value="{{ l }}">{{ l }}</option>
+      <option value="" disabled selected>Choisir une liste...</option>
+      <option ng-repeat="l in lists" value="{{ l.category }}">{{
+        l.category
+      }}</option>
     </select>
     <div id="todo-list">
       <ul style="list-style-type: none; margin: 0; padding: 0;">
@@ -73,18 +83,22 @@
             ng-style="x.done ? {'text-decoration': 'line-through', 'color': 'rgb(0,0,0,.5)'} : {}"
           />
         </li>
-        <form class="form-row">
-          <input
-            class="form-control col-sm-3 mt-3"
-            type="text"
-            placeholder="Écrire"
-            ng-model="formData.todo"
-          />
-          <button type="submit" ng-click="createTodo(); getLists(); (showInput = false)" class="btn btn-link">
-            +
-          </button>
-        </div>
       </ul>
+      <form class="form-inline">
+        <input
+          class="form-control col-sm-3 mt-3"
+          type="text"
+          placeholder="Écrire"
+          ng-model="formData.todo"
+        />
+        <button
+          type="submit"
+          ng-click="createTodo(); getLists()"
+          class="btn btn-link mt-3"
+        >
+          +
+        </button>
+      </form>
     </div>
   </body>
 </html>

@@ -8,6 +8,12 @@ const TodoSchema = new mongoose.Schema({
   user: String
 });
 
-let Todo = new mongoose.model('Todo', TodoSchema, 'todolist');
+const CategorySchema = new mongoose.Schema({
+  category: String,
+  user: String
+});
 
-module.exports = Todo;
+let Todo = new mongoose.model('Todo', TodoSchema, 'todolist');
+let Category = new mongoose.model('Category', CategorySchema, 'categories');
+
+module.exports = { Todo, Category };
