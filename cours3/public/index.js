@@ -1,15 +1,28 @@
-let mainController = ($scope, $http, $window) => {
+const mainController = ($scope, $http, $window) => {
   $scope.formData = {};
   $scope.user = '';
+  $scope.lists = [];
 
   $scope.getTodos = () => {
     $http
       .get('/api/list')
       .then(data => {
         $scope.list = data.data;
+        $scope.getFilteredTodos();
       })
       .catch(data => {
         console.log('Error: ' + data);
+      });
+  };
+
+  $scope.getLists = () => {
+    $http
+      .get('/api/lists')
+      .then(data => {
+        $scope.lists = data.data;
+      })
+      .catch(err => {
+        console.log('Error: ' + err);
       });
   };
 
@@ -18,8 +31,9 @@ let mainController = ($scope, $http, $window) => {
       $http
         .post('/api/list', $scope.formData)
         .then(data => {
-          $scope.formData = {};
+          $scope.formData.todo = '';
           $scope.list = data.data;
+          $scope.getFilteredTodos();
         })
         .catch(data => {
           console.log('Error: ' + data);
@@ -82,6 +96,12 @@ let mainController = ($scope, $http, $window) => {
       });
   };
 
+  $scope.getFilteredTodos = () => {
+    $scope.filteredList = $scope.list.filter(x => {
+      return x.category === $scope.formData.category;
+    });
+  };
+
   $scope.logout = () => {
     $http
       .get('/logout')
@@ -94,10 +114,11 @@ let mainController = ($scope, $http, $window) => {
   };
 
   $scope.getCurrentUser();
+  $scope.getLists();
   $scope.getTodos();
 };
 
-let loginController = ($scope, $http, $window) => {
+const loginController = ($scope, $http, $window) => {
   $scope.credentials = {};
   $scope.login = () => {
     $http
@@ -113,6 +134,25 @@ let loginController = ($scope, $http, $window) => {
   };
 };
 
+const signinController = ($scope, $http, $window) => {
+  $scope.credentials = {};
+  $scope.confirmPassword = '';
+  $scope.signin = () => {
+    if ($scope.credentials.password === $scope.confirmPassword) {
+      $http
+        .post('/signin', $scope.credentials)
+        .then(data => {
+          alert('Vous êtes inscrit !');
+          if (data.status === 200) $window.location.href = '/login';
+          else $window.location.href = '/signin';
+        })
+        .catch(err => {
+          console.log('Error: ' + err);
+        });
+    }
+  };
+};
+
 const TodoApp = angular
   .module('TodoApp', [])
   .controller('mainController', mainController);
@@ -120,3 +160,7 @@ const TodoApp = angular
 const LoginApp = angular
   .module('LoginApp', [])
   .controller('loginController', loginController);
+
+const SigninApp = angular
+  .module('SigninApp', [])
+  .controller('signinController', signinController);
