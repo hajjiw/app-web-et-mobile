@@ -3,8 +3,6 @@ const User = require('../models/user');
 
 const list = async (req, res) => {
   try {
-    // if (req.session.user) return res.json(await Todo.find());
-    // else return res.redirect('/login');
     return res.json(await Todo.find());
   } catch (error) {
     res.send(error);
@@ -83,14 +81,16 @@ const login = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  try {
-    await User.create({
-      username: req.body.username,
-      password: req.body.password
-    });
-    return res.redirect('/login');
-  } catch (error) {
-    return res.send(error);
+  if (req.method === 'POST') {
+    try {
+      await User.create({
+        username: req.body.username,
+        password: req.body.password
+      });
+      return res.sendStatus(200);
+    } catch (error) {
+      return res.send(error);
+    }
   }
 };
 
@@ -111,6 +111,15 @@ const get_current_user = (req, res) => {
   }
 };
 
+const get_lists = async (req, res) => {
+  try {
+    const categories = await Todo.find().distinct('category');
+    return res.send(categories);
+  } catch (error) {
+    return res.send(error);
+  }
+};
+
 module.exports = {
   list,
   add,
@@ -121,5 +130,6 @@ module.exports = {
   login,
   logout,
   signin,
-  get_current_user
+  get_current_user,
+  get_lists
 };

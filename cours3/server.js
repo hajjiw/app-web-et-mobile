@@ -21,19 +21,39 @@ app.use(
 );
 
 // on connecte
-mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
+mongoose
+  .connect('mongodb://localhost/todo', { useNewUrlParser: true })
+  .catch(err => {
+    console.log('Error ' + err);
+  });
 
 app.get('/', (req, res) => {
-  // if (!req.session.user) return res.redirect('/login');
-  // else return res.redirect('/todo');
-  res.sendFile('todo.html', { root: __dirname + '/public' });
+  if (!req.session.user) return res.redirect('/login');
+  else return res.redirect('/todo');
 });
+
+app
+  .route('/login')
+  .get((req, res) => {
+    res.sendFile('/public/index.html', { root: __dirname });
+  })
+  .post(routes.login);
 
 app.get('/todo', (req, res) => {
   if (req.session.user)
     return res.sendFile('/public/todo.html', { root: __dirname });
   else return res.redirect('/login');
 });
+
+app.get('/api/*', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    return next();
+  }
+});
+
+app.get('/api/lists', routes.get_lists);
 
 app
   .route('/api/list')
@@ -49,16 +69,14 @@ app
   .get(routes.get_todo)
   .put(routes.update_todo);
 
-app
-  .route('/login')
-  .get((req, res) => {
-    res.sendFile('/public/index.html', { root: __dirname });
-  })
-  .post(routes.login);
-
 app.get('/api/list/user', routes.get_current_user);
 app.get('/logout', routes.logout);
-app.post('/signin', routes.signin);
+app
+  .route('/signin')
+  .get((req, res) => {
+    res.sendFile('/signin.html', { root: path.join(__dirname, 'public/') });
+  })
+  .post(routes.signin);
 
 app.listen(3001, () => {
   console.log('express started on 3001');
