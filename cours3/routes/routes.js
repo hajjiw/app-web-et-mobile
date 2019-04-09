@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 const list = async (req, res) => {
   try {
-    return res.json(await Todo.find());
+    return res.json(await Todo.find({ user: req.session.user._id }));
   } catch (error) {
     res.send(error);
   }
@@ -23,7 +23,8 @@ const add = async (req, res) => {
       todo: req.body.todo,
       done: false,
       date: new Date().toLocaleTimeString(),
-      category: req.body.category
+      category: req.body.category,
+      user: req.session.user._id
     });
     return res.json(await Todo.find());
   } catch (error) {
@@ -113,7 +114,9 @@ const get_current_user = (req, res) => {
 
 const get_lists = async (req, res) => {
   try {
-    const categories = await Todo.find().distinct('category');
+    const categories = await Todo.find({ user: req.session.user._id }).distinct(
+      'category'
+    );
     return res.send(categories);
   } catch (error) {
     return res.send(error);
