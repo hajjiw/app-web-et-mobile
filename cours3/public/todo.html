@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
+
   <body ng-controller="mainController" style="margin: 2em">
     <button class="btn btn-link float-right" ng-click="logout()">
       <img
@@ -26,26 +27,21 @@
     </button>
     <h2 class="text-primary font-italic">Todo list</h2>
     Bonjour <span ng-bind="user" class="font-weight-bold font-italic"></span>
-    <div id="todo-form">
-      <form>
-        <input type="text" placeholder="Écrire" ng-model="formData.todo" />
-        <button type="submit" ng-click="createTodo()" class="btn btn-primary">
-          Ajouter
-        </button>
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-          <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
-        </div>
-      </form>
-    <br />Nombre de choses: {{ list.length }}
+    <hr />
+    <select
+      id="categories"
+      ng-model="formData.category"
+      class="form-control col-sm-4"
+      ng-init="formData.category = 'sport'"
+      ng-change="getFilteredTodos()"
+    >
+      <option ng-repeat="l in lists" value="{{ l }}">{{ l }}</option>
+    </select>
+    <br />
+    <!-- <input type="text" id="category" ng-model="formData.category" /> -->
     <div id="todo-list">
       <ul style="list-style-type: none; margin: 0; padding: 0;">
-        <li ng-repeat="x in list track by $index">
+        <li ng-repeat="x in filteredList track by $index">
           <button ng-click="checkTodo(x._id)" class="btn btn-link">
             ✔
           </button>
@@ -57,11 +53,24 @@
           <input
             type="text"
             ng-model="x.todo"
-            class="todo"
+            class="editable"
             ng-blur="updateTodo(x)"
             ng-style="x.done ? {'text-decoration': 'line-through', 'color': 'rgb(0,0,0,.5)'} : {}"
           />
         </li>
+        <div id="todo-form">
+          <form class="form-row">
+            <input
+              class="form-control col-sm-4"
+              type="text"
+              placeholder="Écrire"
+              ng-model="formData.todo"
+            />
+            <button type="submit" ng-click="createTodo()" class="btn btn-link">
+              +
+            </button>
+          </form>
+        </div>
       </ul>
     </div>
   </body>
